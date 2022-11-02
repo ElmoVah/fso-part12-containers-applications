@@ -36,7 +36,6 @@ singleRouter.delete('/', async (req, res) => {
 
 /* GET todo. */
 singleRouter.get('/', async (req, res) => {
-  console.log("testi2")
   if(req.todo){
     return res.json(req.todo)
   } else {
@@ -47,8 +46,6 @@ singleRouter.get('/', async (req, res) => {
 /* PUT todo. */
 singleRouter.put('/', async (req, res) => {
 
-  console.log("testi2")
-  console.log(req.body)
   const todo = {
     text: req.body.text,
     done: req.body.done

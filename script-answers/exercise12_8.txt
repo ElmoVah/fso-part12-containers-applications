@@ -1,0 +1,82 @@
+elmov@DESKTOP-51KLC12:~$ docker container ls
+CONTAINER ID   IMAGE     COMMAND                  CREATED       STATUS              PORTS                     NAMES
+1a7e7dd3395d   mongo     "docker-entrypoint.s…"   7 hours ago   Up About a minute   0.0.0.0:3456->27017/tcp   todo-backend-mongo-1
+elmov@DESKTOP-51KLC12:~$ docker exec -it todo-backend-mongo-1 bash
+root@1a7e7dd3395d:/# mongo -u root -p example
+bash: mongo: command not found
+root@1a7e7dd3395d:/# mongosh -u root -p example
+Current Mongosh Log ID: 6362a475c9fe9766b6fa0040
+Connecting to:          mongodb://<credentials>@127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.0
+Using MongoDB:          6.0.2
+Using Mongosh:          1.6.0
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+the_database>
+test> show dbs
+admin         100.00 KiB
+config         72.00 KiB
+local          72.00 KiB
+the_database   72.00 KiB
+test> use_database
+ReferenceError: use_database is not defined
+test> use the_database
+switched to db the_database
+the_database> show collections
+todos
+the_database> db.todos.find({})
+[
+  {
+    _id: ObjectId("6362452d9bff3ec9fce2a4e9"),
+    text: 'Kohta lähtee!',
+    done: true
+  },
+  {
+    _id: ObjectId("6362452d9bff3ec9fce2a4ea"),
+    text: 'Learn about containers',
+    done: false
+  },
+  { _id: ObjectId("63624bce258e840b4c72f48c"), done: false, __v: 0 },
+  {
+    _id: ObjectId("63624be6258e840b4c72f48e"),
+    text: 'Kohta lähtee!',
+    done: false,
+    __v: 0
+  }
+]
+the_database> db.todos.insert({"text": "Increase the number of tools in my toolbelt", "done": "false"})
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("6362a528b969a11ada06bc64") }
+}
+the_database> db.todos.find({})
+[
+  {
+    _id: ObjectId("6362452d9bff3ec9fce2a4e9"),
+    text: 'Kohta lähtee!',
+    done: true
+  },
+  {
+    _id: ObjectId("6362452d9bff3ec9fce2a4ea"),
+    text: 'Learn about containers',
+    done: false
+  },
+  { _id: ObjectId("63624bce258e840b4c72f48c"), done: false, __v: 0 },
+  {
+    _id: ObjectId("63624be6258e840b4c72f48e"),
+    text: 'Kohta lähtee!',
+    done: false,
+    __v: 0
+  },
+  {
+    _id: ObjectId("6362a528b969a11ada06bc64"),
+    text: 'Increase the number of tools in my toolbelt',
+    done: 'false'
+  }
+]
+the_database> db.todos.insertOne({"text": "Increase the number of tools in my toolbelt", "done": "false"})
+{
+  acknowledged: true,
+  insertedId: ObjectId("6362a58ab969a11ada06bc65")
+}
+the_database>
