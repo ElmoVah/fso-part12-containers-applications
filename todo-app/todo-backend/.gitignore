@@ -62,4 +62,4 @@ typings/
 
 .env
 .mongo_data
-./redis_data:/data
+.redis_data
