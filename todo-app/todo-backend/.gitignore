@@ -61,5 +61,5 @@ typings/
 .next
 
 .env
-.mongo_data/
-.redis_data/
+mongo_data/
+redis_data/
